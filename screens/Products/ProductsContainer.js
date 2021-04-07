@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {Header, Input, Container, Item, Icon} from 'native-base';
+
 import ProductCard from './ProductCard';
 
 const data = require('../../assets/products.json');
@@ -13,9 +15,17 @@ const ProductContainer = () => {
     };
   }, []);
   return (
-    <View style={styles.background}>
-      <ProductCard products={data} />
-    </View>
+    <Container>
+      <Header searchBar rounded>
+        <Item>
+          <Icon name="ios-search" />
+          <Input placeholder="Buscar" />
+        </Item>
+      </Header>
+      <View style={styles.background}>
+        <ProductCard products={data} />
+      </View>
+    </Container>
   );
 };
 
