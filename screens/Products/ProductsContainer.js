@@ -8,15 +8,17 @@ const data = require('../../assets/products.json');
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
+  const [productsFilter, setProductsFilter] = useState([]);
   useEffect(() => {
     setProducts(data);
+    setProductsFilter(data);
     return () => {
       setProducts([]);
     };
   }, []);
   return (
     <Container>
-      <Header searchBar rounded>
+      <Header searchBar style={styles.searchBarContainer}>
         <Item>
           <Icon name="ios-search" />
           <Input placeholder="Buscar" />
@@ -33,6 +35,9 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: 'gainsboro',
     flex: 1,
+  },
+  searchBarContainer: {
+    backgroundColor: '#cecece',
   },
 });
 
