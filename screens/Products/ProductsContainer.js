@@ -1,32 +1,60 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
-
 import ProductCard from './ProductCard';
+import ProductSearch from './ProductSearch';
 
 const data = require('../../assets/products.json');
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
+  const [openSearch, setOpenSearch] = useState(false);
   useEffect(() => {
     setProducts(data);
     setProductsFilter(data);
     return () => {
       setProducts([]);
+      setProductsFilter([]);
+      setOpenSearch();
     };
   }, []);
+
+  const showOpenSearch = () => {
+    setOpenSearch(true);
+  };
+
+  const hideOpenSearch = () => {
+    setOpenSearch(false);
+  };
+
+  const filterProducts = text => {
+    setProductsFilter(
+      products.filter(i => i.name.toLowerCase().includes(text.toLowerCase())),
+    );
+  };
   return (
     <Container>
       <Header searchBar style={styles.searchBarContainer}>
         <Item>
           <Icon name="ios-search" />
-          <Input placeholder="Buscar" />
+          <Input
+            onChangeText={text => {
+              filterProducts(text);
+            }}
+            onFocus={showOpenSearch}
+            placeholder="Buscar"
+          />
+          <Icon name="ios-close" onPress={hideOpenSearch} />
         </Item>
       </Header>
-      <View style={styles.background}>
-        <ProductCard products={data} />
-      </View>
+      {openSearch == true ? (
+        <ProductSearch productsFiltered={productsFilter} />
+      ) : (
+        <View style={styles.background}>
+          <ProductCard products={data} />
+        </View>
+      )}
     </Container>
   );
 };
