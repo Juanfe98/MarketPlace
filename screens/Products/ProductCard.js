@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {Thumbnail, Card, CardItem, Button} from 'native-base';
+import {Card, CardItem} from 'native-base';
 
 var width = Dimensions.get('window').width;
 const printTasks = products => {
@@ -41,11 +41,9 @@ const ProductCard = props => {
   const {products} = props;
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Card transparent style={styles.tasksContainer}>
-          {printTasks(products)}
-        </Card>
-      </ScrollView>
+      <Card transparent style={styles.tasksContainer}>
+        {printTasks(products)}
+      </Card>
     </View>
   );
 };

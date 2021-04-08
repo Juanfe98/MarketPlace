@@ -21,7 +21,11 @@ const Banner = props => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.swiper}>
-          <Swiper showButtons={false} autoplay={true} autoplayTimeOut={2}>
+          <Swiper
+            showButtons={false}
+            autoplay={true}
+            autoplayTimeOut={2}
+            style={{height: width / 2}}>
             {bannerImages.map(item => {
               return (
                 <Image

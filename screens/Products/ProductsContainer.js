@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
@@ -52,14 +52,16 @@ const ProductContainer = () => {
       {openSearch == true ? (
         <ProductSearch productsFiltered={productsFilter} />
       ) : (
-        <View>
+        <ScrollView>
           <View>
-            <Banner />
+            <View>
+              <Banner />
+            </View>
+            <View style={styles.background}>
+              <ProductCard products={data} />
+            </View>
           </View>
-          <View style={styles.background}>
-            <ProductCard products={data} />
-          </View>
-        </View>
+        </ScrollView>
       )}
     </Container>
   );
