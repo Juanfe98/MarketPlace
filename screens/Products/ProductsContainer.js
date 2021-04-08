@@ -3,21 +3,34 @@ import {View, StyleSheet, ScrollView} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
+import CategoriesFilter from './CategoriesFilter';
 import Banner from '../../shared/Banner';
 
 const data = require('../../assets/products.json');
+const categoriesData = require('../../assets/categories.json');
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [initialState, setInitialState] = useState([]);
+  const [active, setActive] = useState();
+
   useEffect(() => {
     setProducts(data);
     setProductsFilter(data);
+    setOpenSearch(false);
+    setCategories(categoriesData);
+    setInitialState(data);
+    setActive(-1);
     return () => {
       setProducts([]);
       setProductsFilter([]);
       setOpenSearch();
+      setCategories([]);
+      setInitialState([]);
+      setActive();
     };
   }, []);
 
@@ -56,6 +69,9 @@ const ProductContainer = () => {
           <View>
             <View>
               <Banner />
+            </View>
+            <View>
+              <CategoriesFilter />
             </View>
             <View style={styles.background}>
               <ProductCard products={data} />
