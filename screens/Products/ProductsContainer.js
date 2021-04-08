@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
+import Banner from '../../shared/Banner';
 
 const data = require('../../assets/products.json');
 
@@ -51,8 +52,13 @@ const ProductContainer = () => {
       {openSearch == true ? (
         <ProductSearch productsFiltered={productsFilter} />
       ) : (
-        <View style={styles.background}>
-          <ProductCard products={data} />
+        <View>
+          <View>
+            <Banner />
+          </View>
+          <View style={styles.background}>
+            <ProductCard products={data} />
+          </View>
         </View>
       )}
     </Container>

@@ -6,7 +6,6 @@ var {width} = Dimensions.get('window');
 
 const ProductSearch = props => {
   const {productsFiltered} = props;
-  console.log(productsFiltered.length);
   return (
     <Content style={{width: width}}>
       {productsFiltered.length > 0 ? (
