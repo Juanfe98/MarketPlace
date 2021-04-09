@@ -8,30 +8,21 @@
 
 import React from 'react';
 import type {Node} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
-//Screens
-import ProductContainer from './screens/Products/ProductsContainer';
+//Navigators
+import Main from './Navigators/Main';
 
 //Header
 import Header from './shared/Header';
 
 const App: () => Node = () => {
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
       <Header />
-      <ProductContainer />
-    </View>
+      <Main />
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;
