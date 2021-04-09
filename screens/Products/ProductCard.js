@@ -10,40 +10,43 @@ import {
 import {Card, CardItem} from 'native-base';
 
 var width = Dimensions.get('window').width;
-const printTasks = products => {
-  let key = 1;
-  return products.map(products => {
-    key = key + 1;
-    return (
-      <CardItem bordered style={styles.task} key={key}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log(products.name);
-          }}>
-          <Image
-            style={styles.image}
-            resizeMode="contain"
-            source={{
-              uri: products.image
-                ? products.image
-                : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
-            }}
-          />
-          <View style={styles.card} />
-          <Text style={styles.title}>
-            {products.name.length > 15
-              ? products.name.substring(0, 15 - 3) + '...'
-              : products.name}
-          </Text>
-          <Text style={styles.price}>${products.price}</Text>
-        </TouchableOpacity>
-      </CardItem>
-    );
-  });
-};
 
 const ProductCard = props => {
   const {products} = props;
+
+  const printTasks = products => {
+    let key = 1;
+    return products.map(products => {
+      key = key + 1;
+      console.log(products.name + products.image);
+      return (
+        <CardItem bordered style={styles.task} key={key}>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('Product Detail', {item: products});
+            }}>
+            <Image
+              style={styles.image}
+              resizeMode="contain"
+              source={{
+                uri: products.image
+                  ? products.image
+                  : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
+              }}
+            />
+            <View style={styles.card} />
+            <Text style={styles.title}>
+              {products.name.length > 15
+                ? products.name.substring(0, 15 - 3) + '...'
+                : products.name}
+            </Text>
+            <Text style={styles.price}>${products.price}</Text>
+          </TouchableOpacity>
+        </CardItem>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Card transparent style={styles.tasksContainer}>

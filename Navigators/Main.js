@@ -31,8 +31,8 @@ const Main = () => {
         }}
       />
       {/* <Tab.Screen
-        name="Cart"
-        component={}
+        name="Product Detail"
+        component={ProductDetail}
         options={{
           tabBarIcon: ({color}) => (
             <Icon
@@ -43,8 +43,8 @@ const Main = () => {
             />
           ),
         }}
-      />
-      <Tab.Screen
+      /> */}
+      {/*<Tab.Screen
         name="Admin"
         component={}
         options={{

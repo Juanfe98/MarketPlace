@@ -11,7 +11,8 @@ var {height} = Dimensions.get('window');
 const data = require('../../assets/products.json');
 const categoriesData = require('../../assets/categories.json');
 
-const ProductContainer = () => {
+const ProductContainer = props => {
+  console.log(props);
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
@@ -97,7 +98,10 @@ const ProductContainer = () => {
             </View>
             {productsCtg.length > 0 ? (
               <View style={styles.background}>
-                <ProductCard products={productsCtg} />
+                <ProductCard
+                  products={productsCtg}
+                  navigation={props.navigation}
+                />
               </View>
             ) : (
               <View style={[styles.center, {marginTop: 60}]}>
