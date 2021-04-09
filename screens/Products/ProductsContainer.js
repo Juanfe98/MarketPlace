@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, Text, Dimensions} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import CategoriesFilter from './CategoriesFilter';
 import Banner from '../../shared/Banner';
+
+var {height} = Dimensions.get('window');
 
 const data = require('../../assets/products.json');
 const categoriesData = require('../../assets/categories.json');
@@ -14,6 +16,7 @@ const ProductContainer = () => {
   const [productsFilter, setProductsFilter] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [productsCtg, setProductsCtg] = useState([]);
   const [initialState, setInitialState] = useState([]);
   const [active, setActive] = useState();
 
@@ -23,6 +26,7 @@ const ProductContainer = () => {
     setOpenSearch(false);
     setCategories(categoriesData);
     setInitialState(data);
+    setProductsCtg(data);
     setActive(-1);
     return () => {
       setProducts([]);
@@ -47,6 +51,18 @@ const ProductContainer = () => {
       products.filter(i => i.name.toLowerCase().includes(text.toLowerCase())),
     );
   };
+
+  const filterByCategory = category => {
+    category == 'all'
+      ? [setProductsCtg(initialState), setActive(true)]
+      : [
+          setProductsCtg(
+            products.filter(product => product.category.$oid == category),
+            setActive(true),
+          ),
+        ];
+  };
+
   return (
     <Container>
       <Header searchBar style={styles.searchBarContainer}>
@@ -71,11 +87,23 @@ const ProductContainer = () => {
               <Banner />
             </View>
             <View>
-              <CategoriesFilter />
+              <CategoriesFilter
+                categories={categories}
+                filterByCategory={filterByCategory}
+                productsCtg={productsCtg}
+                active={active}
+                setActive={setActive}
+              />
             </View>
-            <View style={styles.background}>
-              <ProductCard products={data} />
-            </View>
+            {productsCtg.length > 0 ? (
+              <View style={styles.background}>
+                <ProductCard products={productsCtg} />
+              </View>
+            ) : (
+              <View style={[styles.center, {marginTop: 60}]}>
+                <Text>No se encontraron productos para esta categoria</Text>
+              </View>
+            )}
           </View>
         </ScrollView>
       )}
@@ -87,9 +115,14 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: 'gainsboro',
     flex: 1,
+    height: height,
   },
   searchBarContainer: {
     backgroundColor: '#cecece',
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
