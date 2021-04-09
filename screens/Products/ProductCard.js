@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {Card, CardItem} from 'native-base';
 
@@ -16,22 +16,27 @@ const printTasks = products => {
     key = key + 1;
     return (
       <CardItem bordered style={styles.task} key={key}>
-        <Image
-          style={styles.image}
-          resizeMode="contain"
-          source={{
-            uri: products.image
-              ? products.image
-              : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
-          }}
-        />
-        <View style={styles.card} />
-        <Text style={styles.title}>
-          {products.name.length > 15
-            ? products.name.substring(0, 15 - 3) + '...'
-            : products.name}
-        </Text>
-        <Text style={styles.price}>${products.price}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(products.name);
+          }}>
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={{
+              uri: products.image
+                ? products.image
+                : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
+            }}
+          />
+          <View style={styles.card} />
+          <Text style={styles.title}>
+            {products.name.length > 15
+              ? products.name.substring(0, 15 - 3) + '...'
+              : products.name}
+          </Text>
+          <Text style={styles.price}>${products.price}</Text>
+        </TouchableOpacity>
       </CardItem>
     );
   });
