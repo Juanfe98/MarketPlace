@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Card, CardItem} from 'native-base';
 
-var width = Dimensions.get('window').width;
+var {width, height} = Dimensions.get('window');
 
 const ProductCard = props => {
   const {products} = props;
@@ -18,7 +18,6 @@ const ProductCard = props => {
     let key = 1;
     return products.map(products => {
       key = key + 1;
-      console.log(products.name + products.image);
       return (
         <CardItem bordered style={styles.task} key={key}>
           <TouchableOpacity
@@ -35,12 +34,14 @@ const ProductCard = props => {
               }}
             />
             <View style={styles.card} />
-            <Text style={styles.title}>
-              {products.name.length > 15
-                ? products.name.substring(0, 15 - 3) + '...'
-                : products.name}
-            </Text>
-            <Text style={styles.price}>${products.price}</Text>
+            <View style={styles.contentCardContainer}>
+              <Text style={styles.title}>
+                {products.name.length > 15
+                  ? products.name.substring(0, 15 - 3) + '...'
+                  : products.name}
+              </Text>
+              <Text style={styles.price}>${products.price}</Text>
+            </View>
           </TouchableOpacity>
         </CardItem>
       );
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     marginRight: '3%',
     marginLeft: '3%',
     width: '44%',
+    minHeight: height / 3,
     borderRadius: 15,
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -79,24 +81,32 @@ const styles = StyleSheet.create({
     width: width / 2 - 20 - 10,
     height: width / 2 - 20 - 90,
     backgroundColor: 'transparent',
+    left: -17,
   },
   image: {
     width: width / 2 - 20 - 10,
     height: width / 2 - 20 - 30,
-    backgroundColor: 'transparent',
     position: 'absolute',
-    top: -45,
+    left: -15,
+    top: -25,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 14,
-    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     color: 'black',
   },
   price: {
     fontSize: 22,
     color: 'orange',
     marginTop: '10%',
+  },
+  contentCardContainer: {
+    left: -15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
   },
 });
 

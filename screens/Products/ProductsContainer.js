@@ -80,35 +80,36 @@ const ProductContainer = props => {
         </Item>
       </Header>
       {openSearch == true ? (
-        <ProductSearch productsFiltered={productsFilter} />
+        <ProductSearch
+          productsFiltered={productsFilter}
+          navigation={props.navigation}
+        />
       ) : (
         <ScrollView>
           <View>
-            <View>
-              <Banner />
-            </View>
-            <View>
-              <CategoriesFilter
-                categories={categories}
-                filterByCategory={filterByCategory}
-                productsCtg={productsCtg}
-                active={active}
-                setActive={setActive}
+            <Banner />
+          </View>
+          <View>
+            <CategoriesFilter
+              categories={categories}
+              filterByCategory={filterByCategory}
+              productsCtg={productsCtg}
+              active={active}
+              setActive={setActive}
+            />
+          </View>
+          {productsCtg.length > 0 ? (
+            <View style={styles.background}>
+              <ProductCard
+                products={productsCtg}
+                navigation={props.navigation}
               />
             </View>
-            {productsCtg.length > 0 ? (
-              <View style={styles.background}>
-                <ProductCard
-                  products={productsCtg}
-                  navigation={props.navigation}
-                />
-              </View>
-            ) : (
-              <View style={[styles.center, {marginTop: 60}]}>
-                <Text>No se encontraron productos para esta categoria</Text>
-              </View>
-            )}
-          </View>
+          ) : (
+            <View style={[styles.center, {marginTop: 60}]}>
+              <Text>No se encontraron productos para esta categoria</Text>
+            </View>
+          )}
         </ScrollView>
       )}
     </Container>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: 'gainsboro',
     flex: 1,
-    height: height,
+    height: height + 150, //TODO: Verificar en celulares de diferentes tamaños.
   },
   searchBarContainer: {
     backgroundColor: '#cecece',
