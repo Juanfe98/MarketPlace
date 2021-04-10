@@ -19,7 +19,22 @@ const ProductDetail = props => {
             }}
           />
         </View>
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.contentHeader}>{item.name}</Text>
+          <Text style={styles.contentText}>{item.brand}</Text>
+        </View>
+        {/* TODO: Agregar descripcion, descripcion rica y disponibilidad del producto */}
       </ScrollView>
+
+      <View style={styles.bottomContainer}>
+        <Left>
+          <Text style={styles.price}>$ {item.price}</Text>
+        </Left>
+        <Right>
+          <Button title="Agregar" />
+        </Right>
+      </View>
     </Container>
   );
 };
@@ -37,6 +52,32 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 250,
+  },
+  contentContainer: {
+    marginTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  contentHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 30,
+  },
+  contentText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 30,
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
+  price: {
+    fontSize: 24,
+    margin: 20,
+    color: 'red',
   },
 });
 export default ProductDetail;
