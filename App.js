@@ -10,6 +10,10 @@ import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
+//Redux
+import {Provider} from 'react-redux';
+import store from './Redux/Store';
+
 //Navigators
 import Main from './Navigators/Main';
 
@@ -18,10 +22,12 @@ import Header from './shared/Header';
 
 const App: () => Node = () => {
   return (
-    <NavigationContainer>
-      <Header />
-      <Main />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Header />
+        <Main />
+      </NavigationContainer>
+    </Provider>
   );
 };
 
