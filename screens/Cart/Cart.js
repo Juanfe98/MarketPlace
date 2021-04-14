@@ -1,8 +1,23 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 
-const Cart = () => {
-  return <Text>It Works!</Text>;
+//Libreria para conectar el store al componente y tener acceso al estado en store
+import {connect} from 'react-redux';
+
+const Cart = props => {
+  console.log(props);
+  return (
+    <View style={{flex: 1}}>
+      {props.cartItems.map(x => (
+        <Text>{x.product.name}</Text>
+      ))}
+    </View>
+  );
 };
 
-export default Cart;
+const mapStateToProps = state => {
+  const {cartItems} = state;
+  return {cartItems: cartItems};
+};
+
+export default connect(mapStateToProps, null)(Cart);

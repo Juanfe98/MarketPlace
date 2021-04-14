@@ -7,13 +7,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Card, CardItem} from 'native-base';
+import {Button, Card, CardItem} from 'native-base';
+import {connect} from 'react-redux';
+import * as actions from '../../Redux/Actions/cartActions';
 
 var {width, height} = Dimensions.get('window');
 
 const ProductCard = props => {
-  const {products} = props;
-
+  const {products, addItemToCart} = props;
   const printTasks = products => {
     let key = 1;
     return products.map(products => {
@@ -41,6 +42,14 @@ const ProductCard = props => {
                   : products.name}
               </Text>
               <Text style={styles.price}>${products.price}</Text>
+              <Button
+                transparent
+                style={styles.btnAdd}
+                onPress={() => {
+                  addItemToCart(products);
+                }}>
+                <Text style={styles.txtAdd}>Agregar</Text>
+              </Button>
             </View>
           </TouchableOpacity>
         </CardItem>
@@ -55,6 +64,14 @@ const ProductCard = props => {
       </Card>
     </View>
   );
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItemToCart: product => {
+      dispatch(actions.addToCart({quantity: 1, product}));
+    },
+  };
 };
 
 const styles = StyleSheet.create({
@@ -102,6 +119,14 @@ const styles = StyleSheet.create({
     color: 'orange',
     marginTop: '10%',
   },
+  btnAdd: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  txtAdd: {
+    color: 'blue',
+  },
   contentCardContainer: {
     left: -15,
     justifyContent: 'center',
@@ -110,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+export default connect(null, mapDispatchToProps)(ProductCard);

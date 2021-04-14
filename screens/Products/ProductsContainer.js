@@ -12,7 +12,6 @@ const data = require('../../assets/products.json');
 const categoriesData = require('../../assets/categories.json');
 
 const ProductContainer = props => {
-  console.log(props);
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
