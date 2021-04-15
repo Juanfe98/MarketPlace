@@ -20,6 +20,7 @@ import {
 var {width, heigth} = Dimensions.get('window');
 //Libreria para conectar el store al componente y tener acceso al estado en store
 import {connect} from 'react-redux';
+import * as actions from '../../Redux/Actions/cartActions';
 
 const Cart = props => {
   let total = 0;
@@ -58,7 +59,12 @@ const Cart = props => {
               <Text>$ {total.toFixed(2)}</Text>
             </Left>
             <Right>
-              <Button title="Limpiar" />
+              <Button
+                title="Limpiar"
+                onPress={() => {
+                  props.clearCart();
+                }}
+              />
             </Right>
             <Right>
               <Button title="Pagar" />
@@ -80,6 +86,13 @@ const mapStateToProps = state => {
   return {cartItems: cartItems};
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    clearCart: () => {
+      dispatch(actions.clearCart());
+    },
+  };
+};
 const styles = StyleSheet.create({
   emptyContainer: {
     height: heigth,
@@ -106,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, null)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
