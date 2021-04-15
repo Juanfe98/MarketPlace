@@ -5,7 +5,6 @@ import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
 
 const Cart = props => {
-  console.log(props);
   return (
     <View style={{flex: 1}}>
       {props.cartItems.map(x => (
