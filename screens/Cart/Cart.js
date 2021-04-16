@@ -15,7 +15,10 @@ import {
   Left,
   Right,
   Text,
+  Icon,
 } from 'native-base';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import CartItem from './CartItem';
 
 var {width, heigth} = Dimensions.get('window');
 //Libreria para conectar el store al componente y tener acceso al estado en store
@@ -32,28 +35,30 @@ const Cart = props => {
       {props.cartItems.length ? (
         <Container>
           <H1 style={{alignSelf: 'center'}}>Carro de Compras</H1>
-          {props.cartItems.map(item => (
-            <ListItem style={styles.listItem} key={Math.random()} avatar>
-              <Left>
-                <Thumbnail
-                  source={{
-                    uri: item.product.image
-                      ? item.product.image
-                      : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
-                  }}
-                  style={{backgroundColor: 'black', margin: 0}}
-                />
-              </Left>
-              <Body style={styles.body}>
-                <Left>
-                  <Text>{item.product.name}</Text>
-                </Left>
-                <Right>
-                  <Text>$ {item.product.price}</Text>
-                </Right>
-              </Body>
-            </ListItem>
-          ))}
+          <SwipeListView
+            data={props.cartItems}
+            renderItem={item => {
+              return <CartItem item={item} />;
+            }}
+            renderHiddenItem={item => {
+              return (
+                <View style={styles.hiddenContainer}>
+                  <TouchableOpacity
+                    style={styles.hiddenButton}
+                    onPress={() => props.removeItem(item.item)}>
+                    <Icon name="trash" style={{color: 'white'}} />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            disableRightSwipe={true}
+            previewOpenDelay={3000}
+            friction={1000}
+            tension={40}
+            leftOpenValue={75}
+            stopLeftSwipe={75}
+            rightOpenValue={-75}
+          />
           <View style={styles.bottomContainer}>
             <Left>
               <Text>$ {total.toFixed(2)}</Text>
@@ -91,22 +96,15 @@ const mapDispatchToProps = dispatch => {
     clearCart: () => {
       dispatch(actions.clearCart());
     },
+    removeItem: product => {
+      dispatch(actions.removeFromCart(product));
+    },
   };
 };
 const styles = StyleSheet.create({
   emptyContainer: {
     height: heigth,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  listItem: {
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  body: {
-    margin: 10,
-    flexDirection: 'row',
     alignItems: 'center',
   },
   bottomContainer: {
@@ -116,6 +114,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     elevation: 20,
+  },
+  hiddenContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+  },
+  hiddenButton: {
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingRight: 25,
+    height: 60,
+    width: width / 1.2,
   },
 });
 
