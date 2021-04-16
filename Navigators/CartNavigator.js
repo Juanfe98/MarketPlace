@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Cart from '../screens/Cart/Cart';
+import CheckoutNavigator from './CheckoutNavigator';
 
 const Stack = createStackNavigator();
 
@@ -12,11 +13,11 @@ function MyStack() {
         component={Cart}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-        name="Product Detail"
-        component={ProductDetail}
-        options={{headerShown: false}}
-      /> */}
+      <Stack.Screen
+        name="Shipping"
+        component={CheckoutNavigator}
+        options={{title: 'Checkout'}}
+      />
     </Stack.Navigator>
   );
 }

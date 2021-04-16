@@ -72,7 +72,12 @@ const Cart = props => {
               />
             </Right>
             <Right>
-              <Button title="Pagar" />
+              <Button
+                title="Pagar"
+                onPress={() => {
+                  props.navigation.navigate('Shipping');
+                }}
+              />
             </Right>
           </View>
         </Container>
