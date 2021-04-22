@@ -13,17 +13,23 @@ function Input(props) {
     secureTextEntry,
     keyboardType,
   } = props;
-  <TextInput
-    style={}
-    placeholder={placeholder}
-    name={name}
-    id={id}
-    value={value}
-    autoCorrect={autoCorrect}
-    onChangeText={onChangeText}
-    onFocus={onfocus}
-    secureTextEntry={secureTextEntry}
-    keyboardType={keyboardType}></TextInput>;
+
+  return (
+    <TextInput
+      style={styles.Input}
+      placeholder={placeholder}
+      name={name}
+      id={id}
+      value={value}
+      autoCorrect={autoCorrect}
+      onChangeText={onChangeText}
+      onFocus={onfocus}
+      secureTextEntry={secureTextEntry}
+      keyboardType={keyboardType}
+      placeholderTextColor="#001B42"
+      color="#001B42"
+    />
+  );
 }
 
 const styles = StyleSheet.create({
@@ -34,8 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 20,
-    borderColor: 'blue',
-    borderWidth: 2,
+    borderColor: '#001B42',
+    borderWidth: 1.5,
   },
 });
 
