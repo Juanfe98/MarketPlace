@@ -12,7 +12,7 @@ const ProductSearch = props => {
         productsFiltered.map(item => {
           return (
             <ListItem
-              key={item._id.$oid}
+              key={item._id}
               avatar
               onPress={() => {
                 props.navigation.navigate('Product Detail', {item: item});

@@ -28,16 +28,16 @@ const CategoriesFilter = props => {
         {categories.map(category => {
           return (
             <TouchableOpacity
-              key={category._id.$oid}
+              key={category._id}
               onPress={() => {
-                filterByCategory(category._id.$oid);
-                setActive(category._id.$oid);
+                filterByCategory(category._id);
+                setActive(category._id);
               }}>
               <Badge
                 style={[
                   styles.center,
                   {margin: 7},
-                  active == category._id.$oid ? styles.active : styles.inactive,
+                  active == category._id ? styles.active : styles.inactive,
                 ]}>
                 <Text style={{fontWeight: 'bold'}}>{category.name}</Text>
               </Badge>

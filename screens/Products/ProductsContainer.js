@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import {View, StyleSheet, ScrollView, Text, Dimensions} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import CategoriesFilter from './CategoriesFilter';
 import Banner from '../../shared/Banner';
+import {axiosInstance} from '../../Axios/axiosInstance';
 
 var {height} = Dimensions.get('window');
-
-const data = require('../../assets/products.json');
-const categoriesData = require('../../assets/categories.json');
 
 const ProductContainer = props => {
   const [products, setProducts] = useState([]);
@@ -20,24 +19,47 @@ const ProductContainer = props => {
   const [initialState, setInitialState] = useState([]);
   const [active, setActive] = useState();
 
-  useEffect(() => {
-    setProducts(data);
-    setProductsFilter(data);
-    setOpenSearch(false);
-    setCategories(categoriesData);
-    setInitialState(data);
-    setProductsCtg(data);
-    setActive(-1);
-    return () => {
-      setProducts([]);
-      setProductsFilter([]);
-      setOpenSearch();
-      setCategories([]);
-      setInitialState([]);
-      setActive();
-    };
-  }, []);
+  const getProducts = async () => {
+    await axiosInstance
+      .get('products')
+      .then(response => {
+        setProducts(response.data);
+        setProductsFilter(response.data);
+        setInitialState(response.data);
+        setProductsCtg(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
+  const getCategories = async () => {
+    await axiosInstance
+      .get('categories')
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      getProducts();
+      getCategories();
+      setOpenSearch(false);
+      setActive(-1);
+      return () => {
+        setProducts([]);
+        setProductsFilter([]);
+        setOpenSearch();
+        setCategories([]);
+        setInitialState([]);
+        setActive();
+      };
+    }, []),
+  );
   const showOpenSearch = () => {
     setOpenSearch(true);
   };
@@ -57,7 +79,7 @@ const ProductContainer = props => {
       ? [setProductsCtg(initialState), setActive(true)]
       : [
           setProductsCtg(
-            products.filter(product => product.category.$oid == category),
+            products.filter(product => product.category._id === category),
             setActive(true),
           ),
         ];
@@ -78,6 +100,7 @@ const ProductContainer = props => {
           <Icon name="ios-close" onPress={hideOpenSearch} />
         </Item>
       </Header>
+      {/* TODO: Solucionar error al cerrar y volver a abrir el componente, ya que no se vuelve a abrir */}
       {openSearch == true ? (
         <ProductSearch
           productsFiltered={productsFilter}
@@ -119,7 +142,6 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: 'gainsboro',
     flex: 1,
-    height: height + 150, //TODO: Verificar en celulares de diferentes tamaños.
   },
   searchBarContainer: {
     backgroundColor: '#cecece',
