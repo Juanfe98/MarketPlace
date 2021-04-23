@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Button} from 'react-native';
-import {Item, Picker} from 'native-base';
+import {View, StyleSheet} from 'react-native';
+import {Picker, Button, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FormContainer from '../../../shared/Form/FormContainer';
 import Input from '../../../shared/Form/Input';
@@ -21,10 +21,26 @@ function Checkout(props) {
 
   useEffect(() => {
     setOrderItems(props.cartItems);
+    console.log(props.cartItems);
     return () => {
       setOrderItems([]);
     };
   }, []);
+
+  const proceeed = () => {
+    let order = {
+      city,
+      country,
+      dateOrdered: Date.now(),
+      orderItems,
+      phone,
+      shippingAddress1: address,
+      shippingAddress2: address2,
+      zip,
+    };
+
+    props.navigation.navigate('Payment', {order});
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -64,6 +80,7 @@ function Checkout(props) {
           keyboardType={'numeric'}
           onChangeText={value => setZip(value)}
         />
+        {/* TODO: Reemplazar Picker, se genera error al clickear sobre cualquier parte de el que no sea el icono arrow y no toma el placeholder pero sino se cambia no toma valor al enviar el formulario */}
         <Picker
           mode="dropdown"
           iosIcon={<Icon name="arrow-down" color="#007aff" />}
@@ -85,6 +102,15 @@ function Checkout(props) {
             );
           })}
         </Picker>
+        <View style={styles.btnContainer}>
+          <Button
+            style={styles.btn}
+            onPress={() => {
+              proceeed();
+            }}>
+            <Text style={{color: 'white'}}>Continuar</Text>
+          </Button>
+        </View>
       </FormContainer>
     </KeyboardAwareScrollView>
   );
@@ -96,5 +122,22 @@ const mapStateToProps = state => {
     cartItems: cartItems,
   };
 };
+
+const styles = StyleSheet.create({
+  title: {
+    alignSelf: 'center',
+    alignContent: 'center',
+  },
+  btnContainer: {
+    alignSelf: 'center',
+  },
+  btn: {
+    borderRadius: 15,
+    padding: 20,
+    backgroundColor: 'green',
+    marginTop: 30,
+    elevation: 40,
+  },
+});
 
 export default connect(mapStateToProps)(Checkout);
