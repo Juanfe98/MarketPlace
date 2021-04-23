@@ -1,6 +1,13 @@
 import React, {useState, useCallback} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import {View, StyleSheet, ScrollView, Text, Dimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Dimensions,
+  Keyboard,
+} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
@@ -65,6 +72,7 @@ const ProductContainer = props => {
   };
 
   const hideOpenSearch = () => {
+    Keyboard.dismiss();
     setOpenSearch(false);
   };
 
@@ -100,7 +108,6 @@ const ProductContainer = props => {
           <Icon name="ios-close" onPress={hideOpenSearch} />
         </Item>
       </Header>
-      {/* TODO: Solucionar error al cerrar y volver a abrir el componente, ya que no se vuelve a abrir */}
       {openSearch == true ? (
         <ProductSearch
           productsFiltered={productsFilter}

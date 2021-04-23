@@ -6,17 +6,17 @@ export const axiosInstance = axios.create({
   timeout: 1000,
 });
 
-axiosInstance.interceptors.request.use(
-  config => {
-    console.log(
-      `${config.method.toUpperCase()} request sent to ${
-        config.url
-      } at ${new Date().getTime()}`,
-    );
+// axiosInstance.interceptors.request.use(
+//   config => {
+//     console.log(
+//       `${config.method.toUpperCase()} request sent to ${
+//         config.url
+//       } at ${new Date().getTime()}`,
+//     );
 
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  },
-);
+//     return config;
+//   },
+//   error => {
+//     return Promise.reject(error);
+//   },
+// );
