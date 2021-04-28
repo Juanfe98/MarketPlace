@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Picker, Button, Text} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import FormContainer from '../../../shared/Form/FormContainer';
+import {Button, Text, Header, Body, Title} from 'native-base';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../../../shared/Form/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -16,12 +15,11 @@ function Checkout(props) {
   const [address2, setAddress2] = useState();
   const [city, setCity] = useState();
   const [zip, setZip] = useState();
-  const [country, setCountry] = useState();
+  const [country, setCountry] = useState('CO');
   const [phone, setPhone] = useState();
 
   useEffect(() => {
     setOrderItems(props.cartItems);
-    console.log(props.cartItems);
     return () => {
       setOrderItems([]);
     };
@@ -43,11 +41,19 @@ function Checkout(props) {
   };
 
   return (
-    <KeyboardAwareScrollView
-      viewIsInsideTabBar={true}
-      extraHeight={200}
-      enableOnAndroid={true}>
-      <FormContainer title={'Datos de Envío'}>
+    <>
+      <Header>
+        <Body>
+          <Title style={{alignSelf: 'center', alignContent: 'center'}}>
+            Diligencia tu información
+          </Title>
+        </Body>
+      </Header>
+      <KeyboardAwareScrollView
+        viewIsInsideTabBar={true}
+        extraHeight={200}
+        enableOnAndroid={true}
+        style={styles.container}>
         <Input
           placeholder={'Celular'}
           name={'phone'}
@@ -80,28 +86,27 @@ function Checkout(props) {
           keyboardType={'numeric'}
           onChangeText={value => setZip(value)}
         />
-        {/* TODO: Reemplazar Picker, se genera error al clickear sobre cualquier parte de el que no sea el icono arrow y no toma el placeholder pero sino se cambia no toma valor al enviar el formulario */}
-        <Picker
-          mode="dropdown"
-          iosIcon={<Icon name="arrow-down" color="#007aff" />}
-          dropdownIconColor="#007aff"
-          style={{width: '80%'}}
-          selectedValue={country}
-          placeholder="Select your country"
-          placeholderStyle={{color: '#007aff'}}
-          placeholderIconColor="#007aff"
-          onValueChange={value => setCountry(value)}>
-          {countries.map(country => {
-            return (
-              <Picker.Item
-                color="#007aff"
-                key={country.code}
-                label={country.name}
-                value={country.name}
-              />
-            );
-          })}
-        </Picker>
+        {/* TODO: Agregar un dropdown picker que funcione */}
+        {/* <DropDownPicker
+          autoScrollToDefaultValue
+          containerStyle={{
+            height: 50,
+            width: '95%',
+            borderBottomWidth: 2,
+            borderBottomColor: '#EBEBEB',
+            marginLeft: 15,
+            marginTop: 20,
+          }}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          style={{borderWidth: 0}}
+          items={countries}
+          placeholder="SELECCIONA TÚ PAÍS"
+          onChangeItem={item => {
+            setCountry(item.value);
+          }}
+        /> */}
         <View style={styles.btnContainer}>
           <Button
             style={styles.btn}
@@ -111,8 +116,8 @@ function Checkout(props) {
             <Text style={{color: 'white'}}>Continuar</Text>
           </Button>
         </View>
-      </FormContainer>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </>
   );
 }
 
@@ -124,12 +129,16 @@ const mapStateToProps = state => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
   title: {
     alignSelf: 'center',
     alignContent: 'center',
   },
   btnContainer: {
     alignSelf: 'center',
+    marginTop: 100,
   },
   btn: {
     borderRadius: 15,

@@ -1,21 +1,12 @@
 import React, {useState, useCallback} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Dimensions,
-  Keyboard,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, Text, Keyboard} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import CategoriesFilter from './CategoriesFilter';
 import Banner from '../../shared/Banner';
 import {axiosInstance} from '../../Axios/axiosInstance';
-
-var {height} = Dimensions.get('window');
 
 const ProductContainer = props => {
   const [products, setProducts] = useState([]);
@@ -83,7 +74,7 @@ const ProductContainer = props => {
   };
 
   const filterByCategory = category => {
-    category == 'all'
+    category === 'all'
       ? [setProductsCtg(initialState), setActive(true)]
       : [
           setProductsCtg(
@@ -108,7 +99,7 @@ const ProductContainer = props => {
           <Icon name="ios-close" onPress={hideOpenSearch} />
         </Item>
       </Header>
-      {openSearch == true ? (
+      {openSearch === true ? (
         <ProductSearch
           productsFiltered={productsFilter}
           navigation={props.navigation}

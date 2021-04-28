@@ -1,7 +1,9 @@
 import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Input} from 'react-native-elements';
+import {TextInput} from 'react-native-paper';
 
-function Input(props) {
+function InputForm(props) {
   const {
     placeholder,
     name,
@@ -9,40 +11,33 @@ function Input(props) {
     value,
     autoCorrect,
     onChangeText,
-    onfocus,
     secureTextEntry,
     keyboardType,
   } = props;
 
+  // TODO: El Input no funciona cuando el celular esta en modo display = dark
   return (
     <TextInput
-      style={styles.Input}
-      placeholder={placeholder}
+      mode="flat"
+      style={styles.input}
+      label={placeholder.toUpperCase()}
       name={name}
       id={id}
       value={value}
       autoCorrect={autoCorrect}
       onChangeText={onChangeText}
-      onFocus={onfocus}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
-      placeholderTextColor="#001B42"
-      color="#001B42"
     />
   );
 }
 
 const styles = StyleSheet.create({
-  Input: {
-    width: '80%',
-    height: 60,
+  input: {
     margin: 10,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 20,
-    borderColor: '#001B42',
-    borderWidth: 1.5,
+    backgroundColor: 'transparent',
+    borderColor: '#EBEBEB',
   },
 });
 
-export default Input;
+export default InputForm;

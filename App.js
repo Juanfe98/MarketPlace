@@ -14,6 +14,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import store from './Redux/Store';
 
+//React Native Paper
+import {Provider as PaperProvider} from 'react-native-paper';
+
 //Navigators
 import Main from './Navigators/Main';
 
@@ -23,10 +26,12 @@ import Header from './shared/Header';
 const App: () => Node = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Header />
-        <Main />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <Header />
+          <Main />
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   );
 };
