@@ -6,6 +6,7 @@ import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import CategoriesFilter from './CategoriesFilter';
 import Banner from '../../shared/Banner';
+import Loader from '../../shared/Loader';
 import {axiosInstance} from '../../Axios/axiosInstance';
 
 const ProductContainer = props => {
@@ -16,8 +17,10 @@ const ProductContainer = props => {
   const [productsCtg, setProductsCtg] = useState([]);
   const [initialState, setInitialState] = useState([]);
   const [active, setActive] = useState();
+  const [loader, setLoader] = useState(false);
 
   const getProducts = async () => {
+    setLoader(true);
     await axiosInstance
       .get('products')
       .then(response => {
@@ -25,6 +28,7 @@ const ProductContainer = props => {
         setProductsFilter(response.data);
         setInitialState(response.data);
         setProductsCtg(response.data);
+        setLoader(false);
       })
       .catch(err => {
         console.log(err);
@@ -86,51 +90,57 @@ const ProductContainer = props => {
 
   return (
     <Container>
-      <Header searchBar style={styles.searchBarContainer}>
-        <Item>
-          <Icon name="ios-search" />
-          <Input
-            onChangeText={text => {
-              filterProducts(text);
-            }}
-            onFocus={showOpenSearch}
-            placeholder="Buscar"
-          />
-          <Icon name="ios-close" onPress={hideOpenSearch} />
-        </Item>
-      </Header>
-      {openSearch === true ? (
-        <ProductSearch
-          productsFiltered={productsFilter}
-          navigation={props.navigation}
-        />
+      {loader ? (
+        <Loader />
       ) : (
-        <ScrollView>
-          <View>
-            <Banner />
-          </View>
-          <View>
-            <CategoriesFilter
-              categories={categories}
-              filterByCategory={filterByCategory}
-              productsCtg={productsCtg}
-              active={active}
-              setActive={setActive}
-            />
-          </View>
-          {productsCtg.length > 0 ? (
-            <View style={styles.background}>
-              <ProductCard
-                products={productsCtg}
-                navigation={props.navigation}
+        <>
+          <Header searchBar style={styles.searchBarContainer}>
+            <Item>
+              <Icon name="ios-search" />
+              <Input
+                onChangeText={text => {
+                  filterProducts(text);
+                }}
+                onFocus={showOpenSearch}
+                placeholder="Buscar"
               />
-            </View>
+              <Icon name="ios-close" onPress={hideOpenSearch} />
+            </Item>
+          </Header>
+          {openSearch === true ? (
+            <ProductSearch
+              productsFiltered={productsFilter}
+              navigation={props.navigation}
+            />
           ) : (
-            <View style={[styles.center, {marginTop: 60}]}>
-              <Text>No se encontraron productos para esta categoria</Text>
-            </View>
+            <ScrollView>
+              <View>
+                <Banner />
+              </View>
+              <View>
+                <CategoriesFilter
+                  categories={categories}
+                  filterByCategory={filterByCategory}
+                  productsCtg={productsCtg}
+                  active={active}
+                  setActive={setActive}
+                />
+              </View>
+              {productsCtg.length > 0 ? (
+                <View style={styles.background}>
+                  <ProductCard
+                    products={productsCtg}
+                    navigation={props.navigation}
+                  />
+                </View>
+              ) : (
+                <View style={[styles.center, {marginTop: 60}]}>
+                  <Text>No se encontraron productos para esta categoria</Text>
+                </View>
+              )}
+            </ScrollView>
           )}
-        </ScrollView>
+        </>
       )}
     </Container>
   );
