@@ -26,8 +26,9 @@ const creditCards = [
   {name: 'Otra', value: 3},
 ];
 
+const proceed = order => {};
+
 function Payment(props) {
-  const order = props.route.params;
   const [payment, setPayment] = React.useState(0);
   const [creditCard, setCreditCard] = React.useState(0);
   return (
@@ -79,7 +80,10 @@ function Payment(props) {
           <Button
             style={styles.btn}
             onPress={() => {
-              props.navigation.navigate('Confirm', {order});
+              const {order} = props.route.params;
+              order.payment = payment;
+              order.creditCard = creditCard;
+              props.navigation.navigate('Confirmar', {order});
             }}>
             <Text style={{color: 'white'}}>Continuar</Text>
           </Button>

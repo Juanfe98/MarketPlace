@@ -37,7 +37,7 @@ function Checkout(props) {
       zip,
     };
 
-    props.navigation.navigate('Payment', {order});
+    props.navigation.navigate('Pago', {order});
   };
 
   return (
