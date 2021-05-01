@@ -6,6 +6,7 @@ import CartIcon from '../shared/CartIcon';
 //Stack
 import HomeNavigator from './HomeNavigator';
 import CartNavigator from './CartNavigator';
+import UserNavigator from './UserNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +50,7 @@ const Main = () => {
           ),
         }}
       />
-      {/*<Tab.Screen
+      {/* <Tab.Screen
         name="Admin"
         component={}
         options={{
@@ -62,10 +63,10 @@ const Main = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="User"
-        component={}
+        component={UserNavigator}
         options={{
           tabBarIcon: ({color}) => (
             <Icon
@@ -76,7 +77,7 @@ const Main = () => {
             />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
