@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://192.168.20.28:3000/api/v1/',
+  baseURL: 'https://market-place-backapi.herokuapp.com/api/v1/',
   responseType: 'json',
   timeout: 1000,
 });

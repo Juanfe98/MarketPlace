@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {View, StyleSheet, ScrollView, Text, Keyboard} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
@@ -46,22 +46,20 @@ const ProductContainer = props => {
       });
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      getProducts();
-      getCategories();
-      setOpenSearch(false);
-      setActive(-1);
-      return () => {
-        setProducts([]);
-        setProductsFilter([]);
-        setOpenSearch();
-        setCategories([]);
-        setInitialState([]);
-        setActive();
-      };
-    }, []),
-  );
+  useEffect(() => {
+    getProducts();
+    getCategories();
+    setOpenSearch(false);
+    setActive(-1);
+    return () => {
+      setProducts([]);
+      setProductsFilter([]);
+      setOpenSearch();
+      setCategories([]);
+      setInitialState([]);
+      setActive();
+    };
+  }, []);
   const showOpenSearch = () => {
     setOpenSearch(true);
   };
