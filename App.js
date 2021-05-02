@@ -28,7 +28,6 @@ const App: () => Node = () => {
     <Provider store={store}>
       <PaperProvider>
         <NavigationContainer>
-          <Header />
           <Main />
         </NavigationContainer>
       </PaperProvider>

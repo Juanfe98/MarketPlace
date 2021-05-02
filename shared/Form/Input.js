@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Input} from 'react-native-elements';
-import {TextInput} from 'react-native-paper';
+import {TextInput, Text} from 'react-native-paper';
 
 function InputForm(props) {
   const {
@@ -9,26 +8,31 @@ function InputForm(props) {
     name,
     id,
     value,
-    autoCorrect,
+    errorMessage,
     onChangeText,
     secureTextEntry,
     keyboardType,
+    icon = null,
   } = props;
 
   // TODO: El Input no funciona cuando el celular esta en modo display = dark
   return (
-    <TextInput
-      mode="flat"
-      style={styles.input}
-      label={placeholder.toUpperCase()}
-      name={name}
-      id={id}
-      value={value}
-      autoCorrect={autoCorrect}
-      onChangeText={onChangeText}
-      secureTextEntry={secureTextEntry}
-      keyboardType={keyboardType}
-    />
+    <>
+      <TextInput
+        mode="flat"
+        style={styles.input}
+        name={name}
+        id={id}
+        label={placeholder.toUpperCase()}
+        value={value}
+        error={errorMessage}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        right={<TextInput.Icon name={() => icon} />}
+      />
+      <Text style={styles.errorText}>{errorMessage}</Text>
+    </>
   );
 }
 
@@ -37,6 +41,10 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: 'transparent',
     borderColor: '#EBEBEB',
+  },
+  errorText: {
+    color: 'red',
+    marginLeft: 20,
   },
 });
 
