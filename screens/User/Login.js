@@ -6,7 +6,7 @@ import Input from '../../shared/Form/Input';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var logo = require('../../assets/logo_base.png');
-const Login = () => {
+const Login = props => {
   const [{email, emailError}, setEmail] = useState({
     email: '',
     emailError: '',
@@ -75,10 +75,10 @@ const Login = () => {
           </View>
         </Content>
         <Text style={styles.registerBtn}>
-          ¿No tienes cuenta?
+          ¿No tienes cuenta?{'  '}
           <Text
             onPress={() => {
-              console.log('Register Pressed');
+              props.navigation.navigate('Register');
             }}
             style={{color: 'blue'}}>
             Registrate !
