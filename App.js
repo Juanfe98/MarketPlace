@@ -9,6 +9,7 @@
 import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 //Redux
 import {Provider} from 'react-redux';
@@ -29,6 +30,7 @@ const App: () => Node = () => {
       <PaperProvider>
         <NavigationContainer>
           <Main />
+          <Toast ref={ref => Toast.setRef(ref)} />
         </NavigationContainer>
       </PaperProvider>
     </Provider>
