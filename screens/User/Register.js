@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import {Text, Container, Content, Button} from 'native-base';
 import Input from '../../shared/Form/Input';
 import Icon from 'react-native-vector-icons/FontAwesome';

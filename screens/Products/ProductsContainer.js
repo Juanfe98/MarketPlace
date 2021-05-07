@@ -4,7 +4,7 @@ import {View, StyleSheet, ScrollView, Text, Keyboard} from 'react-native';
 import {Header, Input, Container, Item, Icon} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
-import CategoriesFilter from './CategoriesFilter';
+import CategoriesFilter from './Categories/CategoriesFilter';
 import Banner from '../../shared/Banner';
 import Loader from '../../shared/Loader';
 import {axiosInstance} from '../../Axios/axiosInstance';

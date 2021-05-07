@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import {ListItem, Badge, Text} from 'native-base';
-
+import {ListItem, Badge, Text, Button} from 'native-base';
+import FilterButton from './FilterButton';
 const CategoriesFilter = props => {
   const {categories, filterByCategory, productsCtg, active, setActive} = props;
   return (
@@ -10,7 +10,8 @@ const CategoriesFilter = props => {
       horizontal={true}
       style={{backgroundColor: '#f2f2f2'}}>
       <ListItem style={{margin: 0, padding: 0, borderRadius: 0}}>
-        <TouchableOpacity
+        {/* TODO: Esta es la categoria ALL, definir como se va a implementar de una manera optima.*/}
+        {/* <TouchableOpacity
           key={1}
           onPress={() => {
             filterByCategory('all');
@@ -24,24 +25,19 @@ const CategoriesFilter = props => {
             ]}>
             <Text style={{fontWeight: 'bold'}}>Todas</Text>
           </Badge>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {categories.map(category => {
           return (
-            <TouchableOpacity
+            <FilterButton
+              margin={10}
+              size={75}
+              backgroundColor="white"
+              category={category}
+              filterByCategory={filterByCategory}
+              setActive={setActive}
+              active={active}
               key={category._id}
-              onPress={() => {
-                filterByCategory(category._id);
-                setActive(category._id);
-              }}>
-              <Badge
-                style={[
-                  styles.center,
-                  {margin: 7},
-                  active == category._id ? styles.active : styles.inactive,
-                ]}>
-                <Text style={{fontWeight: 'bold'}}>{category.name}</Text>
-              </Badge>
-            </TouchableOpacity>
+            />
           );
         })}
       </ListItem>
@@ -53,12 +49,6 @@ const styles = StyleSheet.create({
   center: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  active: {
-    backgroundColor: '#03bafc',
-  },
-  inactive: {
-    backgroundColor: '#a0e1eb',
   },
 });
 
