@@ -87,11 +87,20 @@ const ProductContainer = props => {
   };
 
   return (
-    <Container>
+    <Container style={styles.background}>
       {loader ? (
         <Loader />
       ) : (
         <>
+          <View>
+            <CategoriesFilter
+              categories={categories}
+              filterByCategory={filterByCategory}
+              productsCtg={productsCtg}
+              active={active}
+              setActive={setActive}
+            />
+          </View>
           <Header searchBar style={styles.searchBarContainer}>
             <Item>
               <Icon name="ios-search" />
@@ -115,23 +124,15 @@ const ProductContainer = props => {
               <View>
                 <Banner />
               </View>
-              <View>
-                <CategoriesFilter
-                  categories={categories}
-                  filterByCategory={filterByCategory}
-                  productsCtg={productsCtg}
-                  active={active}
-                  setActive={setActive}
-                />
-              </View>
               {productsCtg.length > 0 ? (
-                <View style={styles.background}>
+                <View>
                   <ProductCard
                     products={productsCtg}
                     navigation={props.navigation}
                   />
                 </View>
               ) : (
+                // TODO: Crear componente para mostrar cuando no hay productos
                 <View style={[styles.center, {marginTop: 60}]}>
                   <Text>No se encontraron productos para esta categoria</Text>
                 </View>
@@ -146,8 +147,7 @@ const ProductContainer = props => {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: 'gainsboro',
-    flex: 1,
+    backgroundColor: '#f8f8f8',
   },
   searchBarContainer: {
     backgroundColor: '#cecece',

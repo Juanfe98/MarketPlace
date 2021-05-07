@@ -15,9 +15,7 @@ function FilterButton(props) {
           height: props.size,
           width: props.size,
           backgroundColor:
-            props.active == props.category._id
-              ? 'rgba(96, 97, 239, 1)'
-              : 'rgba(96, 97, 239, 0.5)',
+            props.active == props.category._id ? '#FF6D4E' : 'white',
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: props.size * 2,
@@ -27,7 +25,11 @@ function FilterButton(props) {
           props.filterByCategory(props.category._id);
           props.setActive(props.category._id);
         }}>
-        <Icon name={props.category.icon} size={props.size / 2} color="white" />
+        <Icon
+          name={props.category.icon}
+          size={props.size / 2}
+          color={props.active == props.category._id ? 'white' : '#B3B3C3'}
+        />
       </TouchableOpacity>
       <Text style={{justifyContent: 'center', alignItems: 'center'}}>
         {props.category.name}
