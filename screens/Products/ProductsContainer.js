@@ -1,12 +1,13 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
-import {View, StyleSheet, ScrollView, Text, Keyboard} from 'react-native';
-import {Header, Input, Container, Item, Icon} from 'native-base';
+import {View, Text, StyleSheet, ScrollView, Keyboard} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Container} from 'native-base';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import CategoriesFilter from './Categories/CategoriesFilter';
 import Banner from '../../shared/Banner';
 import Loader from '../../shared/Loader';
+import Input from '../../shared/Form/Input';
 import {axiosInstance} from '../../Axios/axiosInstance';
 
 const ProductContainer = props => {
@@ -85,35 +86,48 @@ const ProductContainer = props => {
           ),
         ];
   };
-
   return (
     <Container style={styles.background}>
       {loader ? (
         <Loader />
       ) : (
         <>
-          <View>
-            <CategoriesFilter
-              categories={categories}
-              filterByCategory={filterByCategory}
-              productsCtg={productsCtg}
-              active={active}
-              setActive={setActive}
-            />
-          </View>
-          <Header searchBar style={styles.searchBarContainer}>
-            <Item>
-              <Icon name="ios-search" />
-              <Input
-                onChangeText={text => {
-                  filterProducts(text);
+          <CategoriesFilter
+            categories={categories}
+            filterByCategory={filterByCategory}
+            productsCtg={productsCtg}
+            active={active}
+            setActive={setActive}
+          />
+          <Input
+            placeholder="Buscar"
+            name="name"
+            id="name"
+            underlineColor="transparent"
+            customStyle={{
+              marginTop: 30,
+              margin: 15,
+              backgroundColor: 'white',
+              borderRadius: 50,
+              borderTopEndRadius: 50,
+              borderTopStartRadius: 50,
+            }}
+            onChangeText={text => {
+              filterProducts(text);
+            }}
+            onFocus={showOpenSearch}
+            leftIcon={<Icon name={'search'} size={20} color="#FE7F63" />}
+            icon={
+              <Icon
+                name={'times'}
+                size={20}
+                color="#FE7F63"
+                onPress={() => {
+                  hideOpenSearch();
                 }}
-                onFocus={showOpenSearch}
-                placeholder="Buscar"
               />
-              <Icon name="ios-close" onPress={hideOpenSearch} />
-            </Item>
-          </Header>
+            }
+          />
           {openSearch === true ? (
             <ProductSearch
               productsFiltered={productsFilter}
@@ -150,7 +164,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   searchBarContainer: {
-    backgroundColor: '#cecece',
+    backgroundColor: '#f8f8f8',
+  },
+  searchBar: {
+    borderRadius: 50,
   },
   center: {
     alignItems: 'center',

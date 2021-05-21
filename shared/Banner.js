@@ -18,36 +18,29 @@ const Banner = props => {
   }, []);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.swiper}>
-          <Swiper
-            showButtons={false}
-            autoplay={true}
-            autoplayTimeOut={2}
-            style={{height: width / 2}}>
-            {bannerImages.map(item => {
-              return (
-                <Image
-                  key={item}
-                  source={{uri: item}}
-                  resizeMode="contain"
-                  style={styles.imageBanner}
-                />
-              );
-            })}
-          </Swiper>
-          <View style={{height: 20}} />
-        </View>
-      </View>
-    </ScrollView>
+    <>
+      <Swiper
+        showButtons={false}
+        autoplay={true}
+        autoplayTimeOut={2}
+        style={{height: width / 2}}>
+        {bannerImages.map(item => {
+          return (
+            <Image
+              key={item}
+              source={{uri: item}}
+              resizeMode="contain"
+              style={styles.imageBanner}
+            />
+          );
+        })}
+      </Swiper>
+      <View style={{height: 20}} />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   swiper: {
     width: width,
     alignItems: 'center',

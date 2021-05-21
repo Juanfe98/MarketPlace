@@ -2,12 +2,12 @@ import React from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Content, Left, Body, ListItem, Thumbnail, Text} from 'native-base';
 
-var {width} = Dimensions.get('window');
+var {width, height} = Dimensions.get('window');
 
 const ProductSearch = props => {
   const {productsFiltered} = props;
   return (
-    <Content style={{width: width}}>
+    <Content style={{width: width, heigth: height}}>
       {productsFiltered.length > 0 ? (
         productsFiltered.map(item => {
           return (

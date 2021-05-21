@@ -16,7 +16,10 @@ const CategoriesFilter = props => {
           <Text style={styles.allCategoriesText}>Ver Todas</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView bounces={true} horizontal={true}>
+      <ScrollView
+        style={styles.categoriesScroll}
+        bounces={true}
+        horizontal={true}>
         <ListItem style={{margin: 0, padding: 0, borderRadius: 0}}>
           {categories.map(category => {
             return (
@@ -59,6 +62,10 @@ const styles = StyleSheet.create({
   allCategoriesText: {
     color: '#FE7F63',
     fontSize: 14,
+  },
+  categoriesScroll: {
+    height: 200,
+    maxHeight: 200,
   },
 });
 

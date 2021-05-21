@@ -13,6 +13,10 @@ function InputForm(props) {
     secureTextEntry,
     keyboardType,
     icon = null,
+    leftIcon = null,
+    onFocus = null,
+    customStyle = null,
+    underlineColor = null,
   } = props;
 
   // TODO: El Input no funciona cuando el celular esta en modo display = dark
@@ -20,7 +24,8 @@ function InputForm(props) {
     <>
       <TextInput
         mode="flat"
-        style={styles.input}
+        underlineColor={underlineColor}
+        style={customStyle ? customStyle : styles.input}
         name={name}
         id={id}
         label={placeholder.toUpperCase()}
@@ -29,7 +34,8 @@ function InputForm(props) {
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
-        right={<TextInput.Icon name={() => icon} />}
+        right={icon ? <TextInput.Icon name={() => icon} /> : undefined}
+        left={leftIcon ? <TextInput.Icon name={() => leftIcon} /> : undefined}
       />
       <Text style={styles.errorText}>{errorMessage}</Text>
     </>

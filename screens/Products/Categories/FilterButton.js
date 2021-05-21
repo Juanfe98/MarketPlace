@@ -8,6 +8,7 @@ function FilterButton(props) {
       style={{
         flex: 1,
         alignItems: 'center',
+        marginBottom: 100,
       }}>
       <TouchableOpacity
         style={{

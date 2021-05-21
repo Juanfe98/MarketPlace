@@ -30,8 +30,8 @@ const ProductCard = props => {
               resizeMode="contain"
               source={{
                 uri: products.image
-                  ? products.image
-                  : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png',
+                  ? 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
+                  : products.image,
               }}
             />
             <View style={styles.card} />
