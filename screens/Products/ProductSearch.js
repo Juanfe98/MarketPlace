@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {Content, Left, Body, ListItem, Thumbnail, Text} from 'native-base';
 
 var {width, height} = Dimensions.get('window');

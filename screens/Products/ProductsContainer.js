@@ -99,6 +99,7 @@ const ProductContainer = props => {
             active={active}
             setActive={setActive}
           />
+          {/* TODO: Limpiar Input cuando se busca un producto o cuando se da en la X */}
           <Input
             placeholder="Buscar"
             name="name"

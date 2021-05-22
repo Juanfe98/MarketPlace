@@ -91,7 +91,7 @@ const Login = props => {
 
 const styles = StyleSheet.create({
   loginContainer: {
-    marginTop: '20%',
+    marginTop: '5%',
   },
   logoContainer: {
     flex: 1,
@@ -112,14 +112,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   formContainer: {
-    margin: 20,
+    margin: '10%',
   },
   formFooter: {
     flex: 1,
   },
   formBtn: {
     alignSelf: 'center',
-    marginTop: '20%',
+    marginTop: '10%',
     backgroundColor: '#9085FF',
     borderRadius: 50,
     width: '70%',
