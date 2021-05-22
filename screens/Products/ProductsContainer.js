@@ -1,11 +1,12 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Keyboard,
   StatusBar,
+  Dimensions,
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Container} from 'native-base';
@@ -14,10 +15,13 @@ import ProductSearch from './ProductSearch';
 import CategoriesFilter from './Categories/CategoriesFilter';
 import Banner from '../../shared/Banner';
 import Loader from '../../shared/Loader';
+import NoProducts from '../../assets/undraw_empty.svg';
 import Input from '../../shared/Form/Input';
 import {axiosInstance} from '../../Axios/axiosInstance';
 
 const ProductContainer = props => {
+  const {width, height} = Dimensions.get('window');
+
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
   const [inputSearchValue, setInputSearchValue] = useState('');
@@ -40,6 +44,7 @@ const ProductContainer = props => {
         setLoader(false);
       })
       .catch(err => {
+        setLoader(false);
         console.log(err);
       });
   };
@@ -69,6 +74,7 @@ const ProductContainer = props => {
       setActive();
     };
   }, []);
+
   const showOpenSearch = () => {
     setOpenSearch(true);
     setProductsFilter(products);
@@ -166,7 +172,11 @@ const ProductContainer = props => {
               ) : (
                 // TODO: Crear componente para mostrar cuando no hay productos
                 <View style={[styles.center, {marginTop: 60}]}>
-                  <Text>No se encontraron productos para esta categoria</Text>
+                  <Text style={styles.noProductsText}>Oops!</Text>
+                  <Text style={styles.noProductsText}>
+                    No encontramos productos
+                  </Text>
+                  <NoProducts width={width - 40} height={height / 2} />
                 </View>
               )}
             </ScrollView>
@@ -187,6 +197,10 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     borderRadius: 50,
+  },
+  noProductsText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   center: {
     alignItems: 'center',
