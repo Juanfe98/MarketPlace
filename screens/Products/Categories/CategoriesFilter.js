@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, ScrollView, View} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {ListItem, Text, Body, Left} from 'native-base';
 import FilterButton from './FilterButton';
 const CategoriesFilter = props => {
@@ -16,27 +22,34 @@ const CategoriesFilter = props => {
           <Text style={styles.allCategoriesText}>Ver Todas</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView
-        style={styles.categoriesScroll}
-        bounces={true}
-        horizontal={true}>
-        <ListItem style={{margin: 0, padding: 0, borderRadius: 0}}>
-          {categories.map(category => {
-            return (
-              <FilterButton
-                margin={10}
-                size={75}
-                backgroundColor="white"
-                category={category}
-                filterByCategory={filterByCategory}
-                setActive={setActive}
-                active={active}
-                key={category._id}
-              />
-            );
-          })}
-        </ListItem>
-      </ScrollView>
+      <KeyboardAvoidingView>
+        <ScrollView
+          style={styles.categoriesScroll}
+          bounces={true}
+          horizontal={true}>
+          <ListItem
+            style={{
+              margin: 0,
+              padding: 0,
+              borderRadius: 0,
+            }}>
+            {categories.map(category => {
+              return (
+                <FilterButton
+                  margin={10}
+                  size={75}
+                  backgroundColor="white"
+                  category={category}
+                  filterByCategory={filterByCategory}
+                  setActive={setActive}
+                  active={active}
+                  key={category._id}
+                />
+              );
+            })}
+          </ListItem>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 };
@@ -64,8 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   categoriesScroll: {
-    height: 200,
-    maxHeight: 200,
+    maxHeight: 130,
   },
 });
 

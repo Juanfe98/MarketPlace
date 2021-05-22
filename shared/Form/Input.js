@@ -36,6 +36,7 @@ function InputForm(props) {
         keyboardType={keyboardType}
         right={icon ? <TextInput.Icon name={() => icon} /> : undefined}
         left={leftIcon ? <TextInput.Icon name={() => leftIcon} /> : undefined}
+        onFocus={onFocus}
       />
       <Text style={styles.errorText}>{errorMessage}</Text>
     </>
