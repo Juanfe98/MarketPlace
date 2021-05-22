@@ -1,5 +1,12 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {View, Text, StyleSheet, ScrollView, Keyboard} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Keyboard,
+  StatusBar,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Container} from 'native-base';
 import ProductCard from './ProductCard';
@@ -92,6 +99,11 @@ const ProductContainer = props => {
   };
   return (
     <Container style={styles.background}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#f8f8f8"
+        translucent={true}
+      />
       {loader ? (
         <Loader />
       ) : (
@@ -168,6 +180,7 @@ const ProductContainer = props => {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#f8f8f8',
+    marginTop: '3%',
   },
   searchBarContainer: {
     backgroundColor: '#f8f8f8',
