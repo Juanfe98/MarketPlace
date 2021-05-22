@@ -13,6 +13,7 @@ import {axiosInstance} from '../../Axios/axiosInstance';
 const ProductContainer = props => {
   const [products, setProducts] = useState([]);
   const [productsFilter, setProductsFilter] = useState([]);
+  const [inputSearchValue, setInputSearchValue] = useState('');
   const [openSearch, setOpenSearch] = useState(false);
   const [categories, setCategories] = useState([]);
   const [productsCtg, setProductsCtg] = useState([]);
@@ -63,14 +64,17 @@ const ProductContainer = props => {
   }, []);
   const showOpenSearch = () => {
     setOpenSearch(true);
+    setProductsFilter(products);
   };
 
   const hideOpenSearch = () => {
+    setInputSearchValue('');
     Keyboard.dismiss();
     setOpenSearch(false);
   };
 
   const filterProducts = text => {
+    setInputSearchValue(text);
     setProductsFilter(
       products.filter(i => i.name.toLowerCase().includes(text.toLowerCase())),
     );
@@ -99,7 +103,6 @@ const ProductContainer = props => {
             active={active}
             setActive={setActive}
           />
-          {/* TODO: Limpiar Input cuando se busca un producto o cuando se da en la X */}
           <Input
             placeholder="Buscar"
             name="name"
@@ -113,6 +116,7 @@ const ProductContainer = props => {
               borderTopEndRadius: 50,
               borderTopStartRadius: 50,
             }}
+            value={inputSearchValue}
             onChangeText={text => {
               filterProducts(text);
             }}
@@ -133,6 +137,7 @@ const ProductContainer = props => {
             <ProductSearch
               productsFiltered={productsFilter}
               navigation={props.navigation}
+              hideOpenSearch={hideOpenSearch}
             />
           ) : (
             <ScrollView>

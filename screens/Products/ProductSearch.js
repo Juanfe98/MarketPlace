@@ -5,7 +5,7 @@ import {Content, Left, Body, ListItem, Thumbnail, Text} from 'native-base';
 var {width, height} = Dimensions.get('window');
 
 const ProductSearch = props => {
-  const {productsFiltered} = props;
+  const {productsFiltered, hideOpenSearch} = props;
   return (
     <Content style={{width: width, heigth: height}}>
       {productsFiltered.length > 0 ? (
@@ -15,6 +15,7 @@ const ProductSearch = props => {
               key={item._id}
               avatar
               onPress={() => {
+                hideOpenSearch();
                 props.navigation.navigate('Product Detail', {item: item});
               }}>
               <Left>
