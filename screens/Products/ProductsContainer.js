@@ -170,7 +170,6 @@ const ProductContainer = props => {
                   />
                 </View>
               ) : (
-                // TODO: Crear componente para mostrar cuando no hay productos
                 <View style={[styles.center, {marginTop: 60}]}>
                   <Text style={styles.noProductsText}>Oops!</Text>
                   <Text style={styles.noProductsText}>

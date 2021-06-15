@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
-import {View} from 'react-native';
-import {Text, Button} from 'native-base';
-
-toggleModal = () => {};
 
 function CustomModal(props) {
   const [toggleModal, setToggleModal] = useState(true);
@@ -16,10 +12,10 @@ function CustomModal(props) {
     <Modal
       isVisible={toggleModal}
       style={{
+        position: 'absolute',
+        bottom: 0,
         backgroundColor: 'white',
         borderRadius: 15,
-        marginBottom: '20%',
-        marginTop: '20%',
       }}
       onBackdropPress={() => toggleModalHandler(false)}
       onBackButtonPress={() => toggleModalHandler(false)}>
