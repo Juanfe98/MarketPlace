@@ -13,40 +13,23 @@ import {
 import {Left, Right, Container} from 'native-base';
 import Swiper from 'react-native-swiper/src';
 import {Appbar} from 'react-native-paper';
-import Rating from '../../../../shared/Rating';
+import Rating from '../../../shared/Rating';
 import FullWidthButton from '../../../shared/fullWidthButton';
-import BottomModal from '../../../shared/Modal/BottomModal';
+import QuantityPicker from './QuantityPicker';
 import {connect} from 'react-redux';
-import * as actions from '../../../Redux/Actions/cartActions';
+import * as cartActions from '../../../Redux/Actions/cartActions';
+import * as productDetailActions from '../../../Redux/Actions/productDetailActions';
 
 const {width, height} = Dimensions.get('window');
 
 const ProductDetail = props => {
   const [item, setItem] = useState(props.route.params.item);
-  const [showQantityModal, setshowQantityModal] = useState(false);
-  const [availability, setAvailability] = useState('');
   const temporal_images = [
     'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg',
     'https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg',
     'https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg',
   ];
 
-  const qantityModalHandler = () => {
-    console.log(
-      '🚀 ~ file: ProductDetail.js ~ line 39 ~ qantityModalHandler ~ showQantityModal ~ before',
-      showQantityModal,
-    );
-    setshowQantityModal(false);
-  };
-
-  const test = () => {
-    setshowQantityModal(!showQantityModal);
-  };
-
-  console.log(
-    '🚀 ~ file: ProductDetail.js ~ line 47 ~ showQantityModal',
-    showQantityModal,
-  );
   return (
     <Container style={styles.container}>
       <StatusBar
@@ -98,12 +81,13 @@ const ProductDetail = props => {
           <FullWidthButton
             mainText="Cantidad: 1"
             secundaryText={`${item.countInStock} Disponibles`}
-            onPress={test}
+            onPress={() => {
+              props.setModalVisibility();
+            }}
             customStyles={{backgroundColor: '#EBEBEB', marginBottom: 25}}
           />
           <FullWidthButton
             mainText="Comprar ahora"
-            onPress={qantityModalHandler}
             customStyles={{backgroundColor: '#7C809B', marginBottom: 10}}
           />
           <FullWidthButton
@@ -114,10 +98,7 @@ const ProductDetail = props => {
             customStyles={{backgroundColor: '#D1D2DC'}}
           />
         </View>
-        <BottomModal visible={showQantityModal} onDismiss={qantityModalHandler}>
-          <Text>TEST</Text>
-          <Text>TEST</Text>
-        </BottomModal>
+        <QuantityPicker />
         {/* TODO: Agregar descripcion, descripcion rica y disponibilidad del producto */}
       </ScrollView>
     </Container>
@@ -127,8 +108,18 @@ const ProductDetail = props => {
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: product => {
-      dispatch(actions.addToCart({quantity: 1, product}));
+      dispatch(cartActions.addToCart({quantity: 1, product}));
     },
+    setModalVisibility: () => {
+      dispatch(productDetailActions.setModalVisibility());
+    },
+  };
+};
+
+const mapStateToProps = state => {
+  const {visibility} = state.productDetail;
+  return {
+    visibility: visibility,
   };
 };
 
@@ -172,4 +163,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
-export default connect(null, mapDispatchToProps)(ProductDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
