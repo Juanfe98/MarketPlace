@@ -73,7 +73,9 @@ const BottomModal = props => {
             <View style={styles.sliderIndicator} />
           </View>
           <ScrollView>
-            <TouchableOpacity activeOpacity={1}>
+            <TouchableOpacity
+              activeOpacity={1}
+              style={styles.childrenContainer}>
               {props.children}
             </TouchableOpacity>
           </ScrollView>
@@ -107,6 +109,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#CECECE',
     height: 4,
     width: 45,
+  },
+  childrenContainer: {
+    marginBottom: 15,
   },
 });
 
