@@ -32,7 +32,6 @@ const BottomModal = props => {
   });
 
   const handleDismiss = () => {
-    console.log('heree');
     closeAnim.start(props.onDismiss());
   };
 
@@ -48,7 +47,7 @@ const BottomModal = props => {
         useNativeDriver: false,
       }),
       onPanResponderRelease: (_, gs) => {
-        if (gs.dy > 0 && gs.vy > 2) {
+        if (gs.dy > 0 && gs.vy > 0.5) {
           return handleDismiss();
         }
         return resetPositionAnim.start();
