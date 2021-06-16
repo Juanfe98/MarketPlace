@@ -18,6 +18,7 @@ import Loader from '../../shared/Loader';
 import NoProducts from '../../assets/undraw_empty.svg';
 import Input from '../../shared/Form/Input';
 import {axiosInstance} from '../../Axios/axiosInstance';
+import productsOffline from '../../assets/products.json';
 
 const ProductContainer = props => {
   const {width, height} = Dimensions.get('window');
@@ -44,6 +45,10 @@ const ProductContainer = props => {
         setLoader(false);
       })
       .catch(err => {
+        setProducts(productsOffline);
+        setProductsFilter(productsOffline);
+        setInitialState(productsOffline);
+        setProductsCtg(productsOffline);
         setLoader(false);
         console.log(err);
       });
