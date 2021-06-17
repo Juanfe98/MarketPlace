@@ -1,29 +1,31 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BottomModal from '../../../shared/Modal/BottomModal';
-import {Text} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {ListItem} from 'react-native-elements';
 
 import {connect} from 'react-redux';
 import * as productDetailActions from '../../../Redux/Actions/productDetailActions';
 
 const QuantityPicker = props => {
   const {visibility, setModalVisibility} = props;
-
+  const initialItems = [1, 2, 3, 4, 5, 6];
   return (
     <BottomModal visible={visibility} onDismiss={setModalVisibility}>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>TEST</Text>
-      <Text>Last</Text>
+      {initialItems.map((item, index) => (
+        <ListItem
+          key={index}
+          bottomDivider
+          containerStyle={{backgroundColor: '#F5F5F5'}}>
+          <ListItem.Content style={styles.listContainer}>
+            <ListItem.Title>{`${item} Unidades`}</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+      ))}
+      <ListItem bottomDivider>
+        <ListItem.Content style={styles.listContainer}>
+          <ListItem.Title>Más unidades</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
     </BottomModal>
   );
 };
@@ -42,4 +44,13 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
+
+const styles = StyleSheet.create({
+  listContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(QuantityPicker);
