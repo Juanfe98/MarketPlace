@@ -4,10 +4,16 @@ import {Badge, Text} from 'native-base';
 import {connect} from 'react-redux';
 
 const CartIcon = props => {
+  const countCartItems = () => {
+    let sumQuantity = props.cartItems.reduce((total, itemValue) => {
+      return total + itemValue.product.quantity;
+    }, 0);
+    return sumQuantity;
+  };
   return props.cartItems.length ? (
     <>
       <Badge style={styles.badge}>
-        <Text style={styles.text}>{props.cartItems.length}</Text>
+        <Text style={styles.text}>{countCartItems()}</Text>
       </Badge>
     </>
   ) : null;

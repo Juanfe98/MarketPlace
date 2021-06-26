@@ -24,6 +24,7 @@ const {width, height} = Dimensions.get('window');
 
 const ProductDetail = props => {
   const [item, setItem] = useState(props.route.params.item);
+  const [quantity, setQuantity] = useState(1);
   const temporal_images = [
     'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg',
     'https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg',
@@ -79,7 +80,7 @@ const ProductDetail = props => {
           <Text style={styles.price}>$ {item.price}</Text>
           <Text style={styles.stockText}>Cantidad Disponible</Text>
           <FullWidthButton
-            mainText="Cantidad: 1"
+            mainText={`Cantidad: ${quantity}`}
             secundaryText={`${item.countInStock} Disponibles`}
             onPress={() => {
               props.setModalVisibility();
@@ -93,12 +94,12 @@ const ProductDetail = props => {
           <FullWidthButton
             mainText="Agregar al carrito"
             onPress={() => {
-              props.addItemToCart(item);
+              props.addItemToCart(item, quantity);
             }}
             customStyles={{backgroundColor: '#D1D2DC'}}
           />
         </View>
-        <QuantityPicker />
+        <QuantityPicker quantity={quantity} setQuantity={setQuantity} />
         {/* TODO: Agregar descripcion, descripcion rica y disponibilidad del producto */}
       </ScrollView>
     </Container>
@@ -107,8 +108,10 @@ const ProductDetail = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItemToCart: product => {
-      dispatch(cartActions.addToCart({quantity: 1, product}));
+    addItemToCart: (product, quantity) => {
+      dispatch(
+        cartActions.addToCart({product: {quantity: quantity, ...product}}),
+      );
     },
     setModalVisibility: () => {
       dispatch(productDetailActions.setModalVisibility());
