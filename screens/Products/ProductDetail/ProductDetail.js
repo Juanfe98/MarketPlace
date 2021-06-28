@@ -16,6 +16,9 @@ import {Appbar} from 'react-native-paper';
 import Rating from '../../../shared/Rating';
 import FullWidthButton from '../../../shared/fullWidthButton';
 import QuantityPicker from './QuantityPicker';
+import SizePicker from './SizePicker/SizePicker';
+import ColorPicker from './ColorPicker/ColorPicker';
+
 import {connect} from 'react-redux';
 import * as cartActions from '../../../Redux/Actions/cartActions';
 import * as productDetailActions from '../../../Redux/Actions/productDetailActions';
@@ -25,6 +28,8 @@ const {width, height} = Dimensions.get('window');
 const ProductDetail = props => {
   const [item, setItem] = useState(props.route.params.item);
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
   const temporal_images = [
     'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg',
     'https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg',
@@ -94,11 +99,21 @@ const ProductDetail = props => {
           <FullWidthButton
             mainText="Agregar al carrito"
             onPress={() => {
-              props.addItemToCart(item, quantity);
+              props.addItemToCart(item, quantity, size, color);
             }}
             customStyles={{backgroundColor: '#D1D2DC'}}
           />
         </View>
+        {item.attributes.sizes && item.attributes.sizes.length > 0 && (
+          <SizePicker product={item} size={size} setSize={setSize} />
+        )}
+        {item.attributes.sizes && item.attributes.sizes.length > 0 && (
+          <ColorPicker
+            avaliableColors={item.attributes.colors}
+            color={color}
+            setColor={setColor}
+          />
+        )}
         <QuantityPicker quantity={quantity} setQuantity={setQuantity} />
         {/* TODO: Agregar descripcion, descripcion rica y disponibilidad del producto */}
       </ScrollView>
@@ -108,9 +123,11 @@ const ProductDetail = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItemToCart: (product, quantity) => {
+    addItemToCart: (product, quantity, size, color) => {
       dispatch(
-        cartActions.addToCart({product: {quantity: quantity, ...product}}),
+        cartActions.addToCart({
+          product: {quantity: quantity, size: size, color: color, ...product},
+        }),
       );
     },
     setModalVisibility: () => {
