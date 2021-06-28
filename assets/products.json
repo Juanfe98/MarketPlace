@@ -19,6 +19,7 @@
       }
     ],
     "brand": "PS3",
+    "attributes": [],
     "price": 250,
     "rating": 1,
     "numReviews": 0,
@@ -37,6 +38,7 @@
     },
     "image": "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg",
     "brand": "IKEA",
+    "attributes": {},
     "price": 350.9,
     "rating": 5,
     "numReviews": 0,
@@ -55,6 +57,7 @@
     },
     "image": "https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg",
     "brand": "OBI",
+    "attributes": {},
     "price": 1350.9,
     "rating": 5,
     "numReviews": 0,
@@ -73,6 +76,7 @@
     },
     "image": "https://images.pexels.com/photos/265658/pexels-photo-265658.jpeg",
     "brand": "OBIS",
+    "attributes": {},
     "price": 490.9,
     "rating": 5,
     "numReviews": 0,
@@ -91,6 +95,7 @@
     },
     "image": "",
     "brand": "Mobilix",
+    "attributes": {},
     "price": 1000,
     "rating": 5,
     "numReviews": null,
@@ -99,6 +104,37 @@
     "description": "Big Sofa for living room",
     "category": {
       "$oid": "5f15d5b2cb4a6642bddc0fe7"
+    },
+    "countInStock": 2,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5f15da13e520d44421ed8e9j"
+    },
+    "image": "",
+    "brand": "Arturo Calle",
+    "price": 1000,
+    "rating": 5,
+    "numReviews": null,
+    "isFeatured": true,
+    "name": "Camisa hombre manga corta",
+    "description": "Camisa de algodon",
+    "category": {
+      "$oid": "5f15d5b2cb4a6642bddc0fe7"
+    },
+    "attributes": {
+      "sizes": [
+        {
+          "size": "M",
+          "quantity": 10
+        },
+        {
+          "size": "L",
+          "quantity": 5
+        }
+      ],
+      "colors": ["red", "blue", "green", "gray", "black"]
     },
     "countInStock": 2,
     "__v": 0
